@@ -2,12 +2,13 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi_sqlalchemy import DBSessionMiddleware
 from hr_bot_api import __version__
+from hr_bot_api.routes.poll import poll
 from hr_bot_api.settings import get_settings
 
 settings = get_settings()
 app = FastAPI(
     title='hr_bot',
-    description='ht_bot',
+    description='hr_bot',
     version=__version__,
 
     # Отключаем нелокальную документацию
@@ -30,3 +31,5 @@ app.add_middleware(
     allow_methods=settings.CORS_ALLOW_METHODS,
     allow_headers=settings.CORS_ALLOW_HEADERS,
 )
+
+app.include_router(poll)
